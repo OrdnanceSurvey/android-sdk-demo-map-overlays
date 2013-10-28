@@ -4,7 +4,7 @@ Description
 A demo app using the openspace-android-sdk to display a basic map and show basic examples of the different map overlays.
 
 
-![ScreenShot](https://github.com/OrdnanceSurvey/android-sdk-mapping-demo/raw/master/screenshot.png "Screenshot of demo app")
+![ScreenShot](https://github.com/OrdnanceSurvey/android-sdk-demo-map-overlsays/raw/master/screenshot.png "Screenshot of demo app")
 
 
 Getting started
