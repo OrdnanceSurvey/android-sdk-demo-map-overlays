@@ -64,6 +64,71 @@ private final static boolean OS_IS_PRO = false;
 
 Project can now be built and run on a device or emulator.
 
+Markers and Overlays
+---
+
+#### Markers (`Marker` & `MarkerOptions` classes)
+
+Markers identify single point locations on the map and can be interacted with in the form of touch events and info windows.
+
+To customise the `Marker` appearance and behaviour, the `addMarker` method accepts a configuration object `MarkerOptions`, use this class to alter how the marker behaves and users interact with it.
+
+
+Add a `Marker` to the map with options.
+
+```java
+
+OSMap mMap = //get OSMap instance
+
+Marker marker = mMap.addMarker(new MarkerOptions()
+            .gridPoint(new GridPoint(260899, 354314))
+            .title("Snowdon summit")
+            .snippet("Congratulations! If you make it to this point, you can always get the train down."));
+
+```
+
+
+It is possible to respond to touch events from markers, this interaction is done through the `OSMap` class by registering a listener for the callback you are interested in.
+
+To respond to a Marker click event, pass an `OnMarkerClickListener` to the `OSMap` using the `OSMap.setOnMarkerClickListener` method to receive a callback when a user clicks on a marker. Return a boolean to indicate if you have consumed the event and if you want to suppress the default action.
+
+The `OnMarkerDragListener` interface will allow you to receive callbacks for the events surrounding a marker being dragged, the `onMarkerDragStart`, `onMarkerDragEnd` and `onMarkerDrag` methods encapsulate the start, finish and during the drag event. To use an `OnMarkerDragListener` pass to the map using the `OSMap.setOnMarkerDragListener` method.
+
+It is possible to customise info windows by implementing an `InfoWindowAdapter` and using the `OSMap.setInfoWindowAdapter` to pass to the map. This `InfoWindowAdapter` can return a `android.view.View` for either the entire info window (`getInfoWindow`) or just the contents (`getInfoContents`).  To receive callbacks for when an info window is clicked, create an `OnInfoWindowClickListener` and pass to the map using the method `OSMap.setOnInfoWindowClickListener`.
+
+
+#### Shapes
+
+The set of Shapes available allow a wide range of overlays to be applied to the map along with customisation.
+
+The pattern is similar to Markers above, customise the `*Options` object before creating the shape and adding to the map. Similarly the option object requires some geometry to specify the position and extent of the shape on the map.
+
+In the example below we create a square `Polygon` and style it.
+
+```java
+
+OSMap mMap = //get OSMap instance
+
+final GridPoint sw = new GridPoint(437200, 115450);
+
+PolygonOptions rectOptions = new PolygonOptions()
+        .add(sw,
+             new GridPoint(sw.x, sw.y + 200),
+             new GridPoint(sw.x + 200, sw.y + 200),
+             new GridPoint(sw.x + 200, sw.y))
+        .strokeColor(Color.GREEN)
+        .fillColor(0x7F00FF00);
+
+Polygon polygon = mMap.addPolygon(rectOptions);
+
+```
+
+There are existing SDK classes for the following shapes, please see reference documentation for more details:
+
+* Polygon - without interior polygons
+* Polyline
+* Circle
+
 
 Questions and Issues
 -------
